@@ -71,4 +71,9 @@ public class TapeTest extends Assert {
 		assertEquals(replace, after);
 	}
 
+	@Test
+	public void testInitTape() {
+		tape.init("111,111");
+		assertEquals(tape.read(), new Character('$'));
+	}
 }
