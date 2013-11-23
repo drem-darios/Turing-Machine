@@ -1,0 +1,38 @@
+package cs664.test;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import cs664.turing.Control;
+
+public class ControlTest extends Assert {
+
+	Control control = new Control();
+	// Program to add one to a number I think...
+	String[] program = { "0$$R1","100R1","111R1","1!!L2",
+			"210L2","201L3","311L3","3$$RX"};
+
+	@Before
+	public void testLoadProgram() {
+		control.loadProgram(program);
+	}
+
+	@Test
+	public void testPerformTransition() {
+		control.performTransition('$');
+	}
+	
+	@Test
+	public void testNextDirection() {
+		Character nextDir = control.getNextDirection('$');
+		assertTrue(nextDir.equals('R'));
+	}
+	
+	@Test
+	public void testGetWriteSymbol() {
+		Character write = control.getWriteSymbol('$');
+		assertTrue(write.equals('$'));
+	}
+
+}
