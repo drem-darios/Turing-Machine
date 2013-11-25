@@ -18,7 +18,7 @@ public class TuringMachineTest {
 	}
 
 	@Test
-	public void test() {
+	public void testSimulator() {
 		tm.simulate();
 	}
 

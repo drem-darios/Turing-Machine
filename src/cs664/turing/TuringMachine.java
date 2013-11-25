@@ -37,7 +37,6 @@ public class TuringMachine {
 		}
 		reader.close();
 		control.loadProgram(programInst.toArray(new String[programInst.size()]));
-
 	}
 
 	/**
@@ -59,22 +58,25 @@ public class TuringMachine {
 	 * Starts the Turing Machine simulation
 	 */
 	public void simulate() {
-		boolean run = true;
+		boolean running = true;
 		try {
 			tape.print(System.out);
-			// infinite loop while state is not halt
-			while (run) {
-				Character currSymbol = tape.read(); // should be start symbol
+			// infinite loop while program is still runnable
+			while (running) {
+				Character currSymbol = tape.read();
 				Character write = control.getWriteSymbol(currSymbol);
 				Character dir = control.getNextDirection(currSymbol);
 				tape.write(write);
 				tape.move(dir);
-				run = control.performTransition(currSymbol);
+				log.info("read: " + currSymbol + " write: " + write + " dir: "
+						+ dir);
+				running = control.performTransition(currSymbol);
 				currSymbol = tape.read();
 			}
 			tape.print(System.out);
 		} catch (Exception e) {
-			log.log(Level.SEVERE, "Something bad happened during simulation.", e);
+			log.log(Level.SEVERE, "Something bad happened during simulation.",
+					e);
 		}
 	}
 

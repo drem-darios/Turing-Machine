@@ -10,6 +10,10 @@ import java.util.Map;
 public class Control {
 
 	/**
+	 * The state id of the start state.
+	 */
+	private static final char START = '0';
+	/**
 	 * Maps state id to the state it represents.
 	 */
 	private Map<Character, State> states = new HashMap<Character, State>();
@@ -34,19 +38,20 @@ public class Control {
 			char[] instLine = inst.toCharArray();
 			Character stateNum = instLine[0];
 			State state;
+			// read, write, direction, next_state
 			if (states.containsKey(stateNum)) {
 				state = states.get(stateNum);
+				// add transition if state exists
 				state.addTransition(instLine[1], instLine[2], instLine[3],
 						instLine[4]);
 			} else {
+				// create state if didn't exist and initialize with transition
 				state = new State(instLine[1], instLine[2], instLine[3],
 						instLine[4]);
 			}
-
 			states.put(stateNum, state);
 		}
-
-		currState = states.get('0');
+		currState = states.get(START);
 	}
 
 	/**
