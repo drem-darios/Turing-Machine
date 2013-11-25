@@ -79,8 +79,9 @@ public class Control {
 	 * @param currSymbol
 	 *            - The current symbol being pointed to by the read head.
 	 */
-	public void performTransition(Character currSymbol) {
+	public boolean performTransition(Character currSymbol) {
 		Character nextState = currState.getNextState(currSymbol);
 		currState = states.get(nextState);
+		return currState != null;
 	}
 }

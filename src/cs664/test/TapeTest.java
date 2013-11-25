@@ -15,43 +15,43 @@ public class TapeTest extends Assert {
 	@Test
 	public void testMoveTape() {
 		// One left
-		Character symbol = tape.moveLeft();
+		Character symbol = tape.move('L');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 		// Two right
-		symbol = tape.moveRight();
+		symbol = tape.move('L');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 
-		symbol = tape.moveRight();
+		symbol = tape.move('R');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 		//Three left
-		symbol = tape.moveLeft();
+		symbol = tape.move('L');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 
-		symbol = tape.moveLeft();
+		symbol = tape.move('L');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 
-		symbol = tape.moveLeft();
+		symbol = tape.move('L');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 		// Four right
-		symbol = tape.moveRight();
+		symbol = tape.move('R');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 
-		symbol = tape.moveRight();
+		symbol = tape.move('R');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 		
-		symbol = tape.moveRight();
+		symbol = tape.move('R');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 
-		symbol = tape.moveRight();
+		symbol = tape.move('R');
 		assertNotNull(symbol);
 		assertEquals(symbol, tape.read());
 	}

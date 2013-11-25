@@ -1,7 +1,12 @@
 package cs664.turing;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 public class Tape {
 
+	public static final Character LEFT = 'L';
+	public static final Character RIGHT = 'R';
 	/**
 	 * The current tape node.
 	 */
@@ -68,36 +73,6 @@ public class Tape {
 	}
 
 	/**
-	 * Moves the read head to the left.
-	 * 
-	 * @return - The current symbol the read head is pointing to after the move.
-	 */
-	public Character moveLeft() {
-		if (readHead.prev == null) {
-			readHead.prev = new TapeNode(blank);
-		}
-
-		readHead = readHead.prev;
-
-		return readHead.symbol;
-	}
-
-	/**
-	 * Moves the read head to the right.
-	 * 
-	 * @return - The current symbol the read head is pointing to after the move.
-	 */
-	public Character moveRight() {
-		if (readHead.next == null) {
-			readHead.next = new TapeNode(blank);
-		}
-
-		readHead = readHead.next;
-
-		return readHead.symbol;
-	}
-
-	/**
 	 * Writes a symbol to the current position of the read head.
 	 * 
 	 * @param symbol
@@ -115,7 +90,66 @@ public class Tape {
 	public Character read() {
 		return readHead.symbol;
 	}
+	
+	public void print(OutputStream stream) throws IOException {
+		this.reset();
+		StringBuilder sb = new StringBuilder("Tape contents: ");
+		while(!readHead.symbol.equals(end)) {
+			sb.append(readHead.symbol);
+			sb.append(" ");
+			readHead = readHead.next;
+		}
+		sb.append(readHead.symbol);
+		sb.append('\n');
+		stream.write(sb.toString().getBytes());
+		this.reset();
+	}
+	
+	/**
+	 * Moves the read head of the tape in the direction given.
+	 */
+	public Character move(Character direction) {
+		if(direction.equals(LEFT)) {
+			return moveLeft();
+		}
+		else if(direction.equals(RIGHT)) {
+			return moveRight();
+		}
+		else {
+			throw new IllegalStateException();
+		}
+	}
+	
+	/**
+	 * Moves the read head to the left.
+	 * 
+	 * @return - The current symbol the read head is pointing to after the move.
+	 */
+	private Character moveLeft() {
+		if (readHead.prev == null) {
+			readHead.prev = new TapeNode(blank);
+		}
 
+		readHead = readHead.prev;
+
+		return readHead.symbol;
+	}
+
+	/**
+	 * Moves the read head to the right.
+	 * 
+	 * @return - The current symbol the read head is pointing to after the move.
+	 */
+	private Character moveRight() {
+		if (readHead.next == null) {
+			readHead.next = new TapeNode(blank);
+		}
+
+		readHead = readHead.next;
+
+		return readHead.symbol;
+	}
+	
 	/**
 	 * Resets the read head to the start of the program.
 	 */
