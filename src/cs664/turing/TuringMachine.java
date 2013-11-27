@@ -16,9 +16,15 @@ public class TuringMachine {
 	private Tape tape = new Tape();
 	private Control control = new Control();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		TuringMachine tm = new TuringMachine();
-		tm.init(args);
+		if (args.length == 1) {
+			String filename = args[0];
+			tm.init(filename);
+		} else {
+			tm.init(args);
+		}
+
 		tm.simulate();
 	}
 
@@ -37,6 +43,15 @@ public class TuringMachine {
 		}
 		reader.close();
 		control.loadProgram(programInst.toArray(new String[programInst.size()]));
+	}
+
+	/**
+	 * Allow loading contents given a file name.
+	 */
+	public void init(String filename) throws IOException {
+		InputStream file = this.getClass().getClassLoader()
+				.getResourceAsStream(filename);
+		this.init(file);
 	}
 
 	/**
